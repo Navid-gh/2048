@@ -1,0 +1,104 @@
+/* firstly we created our variable with css to show what is happening
+but then we should define them with js to we can have access to them
+*/
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* 
+️ Never ever change *::before and *::after font-family. 
+If you are going to use an icon font then most likely they won't work. 
+Because icon font families like Font-Awesome, Google Icons Material Icons, 
+Box icons, Remix icon and so on use <i> or <span> elements' ::before class to show the icon. 
+If you overwrite font-family,
+then they simply won't show up
+*/
+
+body {
+  background-color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100dvh;
+  font-size: 7vmin;
+}
+
+.game-board {
+  /* --grid-size: 4;
+  --cell-size: 20vmin;
+  --gap-size: 2vmin; */
+  display: grid;
+  grid-template-columns: repeat(var(--grid-size), var(--cell-size));
+  grid-template-rows: repeat(var(--grid-size), var(--cell-size));
+  /* 
+  This is a CSS code that sets up a grid container with 4 columns and 4 rows, 
+  where each column and row takes up 20% of the viewport's height and width (vmin stands for "viewport minimum"). T
+  he repeat function is used to repeat the specified value (in this case, 4) 
+  a certain number of times. So repeat(4, 20vmin) means "repeat the value '20vmin' four times."
+  Overall, this CSS code creates a 4x4 grid layout where each cell takes up an equal amount of space on the screen, with the size of each cell being responsive to the size of the viewport.
+  */
+  /* 
+  vmin is a unit of measurement in CSS that represents the smaller of the viewport's height and width. 
+  It stands for "viewport minimum".
+  For example, if the viewport's height is smaller than its width, then 1vmin will be equal to 1% of the viewport's height. 
+  Conversely, if the viewport's width is smaller than its height, then 1vmin will be equal to 1% of the viewport's width.
+  Using vmin as a unit of measurement can be helpful when you want to create a 
+  responsive layout that adjusts to different screen sizes. By setting an element's size in vmin, 
+  it will scale up or down proportionally based on the size of the viewport, 
+  ensuring that the layout looks good across devices with varying screen sizes.
+  */
+  background-color: #ccc;
+  gap: var(--gap-size);
+  border: 1vmin;
+  padding: var(--gap-size);
+  border-radius: 1vmin;
+  position: relative;
+}
+
+.cell {
+  background-color: #aaa;
+  border: 1vmin;
+}
+
+.tile {
+  /* --x: 1;
+  --y: 2;
+  --bg--lightness: 80%;
+  --text--lightness: 20%; */
+  background-color: red;
+  position: absolute;
+  width: var(--cell-size);
+  height: var(--cell-size);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 1vmin;
+  top: calc(var(--y) * (var(--cell-size) + var(--gap-size)) + var(--gap-size));
+  left: calc(var(--x) * (var(--cell-size) + var(--gap-size)) + var(--gap-size));
+  font-weight: bold;
+  /* the last + var(--gap-size) is due border or padding of board  */
+  /* so now what about the back-ground
+  in this game everything is a power of 2
+  and the more its powered by 2 its more darker
+  we can achive this with js and hsl()
+  */
+  background-color: hsl(200, 50%, var(--bg--lightness));
+  color: hsl(200, 25%, var(--text--lightness));
+  /* now we have every dynamic thing we need and we can controll our variables with js */
+  animation: show 200ms ease-in-out;
+  transition: all 100ms ease-in-out;
+  /* anmation for appearing tiles and trasition for moving the tiles */
+}
+
+@keyframes show {
+  0% {
+    opacity: 0.3;
+    transform: scale(0.5);
+  }
+}
